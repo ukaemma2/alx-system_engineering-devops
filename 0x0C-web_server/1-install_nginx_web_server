@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script installs nginx on ubuntu server
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+sed -i 's/8080/80/g' /etc/nginx/sites-available/default
+# sudo ufw allow 'Nginx HTTP'
+sudo service nginx restart

@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
-# A script to configure Nginx server so that /redirect_me is redirecting to another page.
-
-sudo apt-get update
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-sudo service nginx start
+# installing nginx on web server
+# Update the package lists for upgrades and new package installations
+apt-get -y update
+# Install nginx
+apt-get -y install nginx
+# Create a custom homepage
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
-sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+# Configure nginx to listen on port 80
+sed -i 's/8080/80/g' /etc/nginx/sites-available/default
+# Redirection to anothe page
+echo "server {
+    listen 80;
+    server_name _;
+    location = /redirect_me/ {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}" > /etc/nginx/sites-available/default
+# redirect to 404 page is not found
 echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 sed -i '/server_name _;/a error_page 404 /custom_404.html;\nlocation = /custom_404.html {\nroot /usr/share/nginx/html;\ninternal;\n}' /etc/nginx/sites-available/default
-sudo service nginx restart
-sudo service nginx reload
+# Restart nginx to aplly the changes
+service nginx restart

@@ -27,6 +27,7 @@ function install() {
 	fi
 }
 
+
 install nginx #install nginx
 
 echo -e "\n${blue}Setting up some minor stuff.${reset}\n"
@@ -60,6 +61,7 @@ echo "Ceci n'est pas une page" > /var/www/html/error_404.html
 # backup default server config file
 sudo cp /etc/nginx/sites-enabled/default nginx-sites-enabled_default.backup
 
+
 server_config=\
 "server {
 		listen 80 default_server;
@@ -79,6 +81,7 @@ server_config=\
 			internal;
 		}
 }"
+
 
 #shellcheck disable=SC2154
 echo "$server_config" | sudo dd status=none of=/etc/nginx/sites-enabled/default

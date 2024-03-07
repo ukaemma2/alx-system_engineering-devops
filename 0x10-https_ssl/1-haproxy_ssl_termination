@@ -97,8 +97,8 @@ backend web_server
 
         redirect scheme https code 301 if !{ ssl_fc }
 
-        server 182741-web-01 52.86.204.80:80 check
-        server 182741-web-02 34.202.158.153:80 check
+        server 182741-web-01 54.196.25.60:80 check
+        server 182741-web-02 54.210.157.92:80 check
 
 
 

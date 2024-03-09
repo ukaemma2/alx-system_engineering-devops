@@ -1,3 +1,5 @@
-erver with servername pointing to localhost
-echo "ServerName localhost" >> /etc/apache2/apache2.conf
-service apache2 start
+#!/usr/bin/env bash
+# Webstack debugging
+# solve curling issue
+echo "ServerName localhost" >> /etc/apache2.conf
+sudo service apache2 start

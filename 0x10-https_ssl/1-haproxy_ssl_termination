@@ -76,31 +76,19 @@ defaults
 
 
 frontend load_balancer
-
-        bind *:80
-
-        bind *:443 ssl crt /etc/letsencrypt/live/www.emmitech.tech/emmitech.tech.pem
-
-        acl letsencrypt-acl path_beg /.well-known/acme-challenge/
-
-        redirect scheme https if !{ ssl_fc }
-
-        use_backend letsencrypt-backend if letsencrypt-acl
-
-        default_backend web_server
-
-
-
+		bind *:80
+		bind *:443 ssl crt /etc/letsencrypt/live/www.emmitech.tech/emmitech.tech.pem
+		acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+		redirect scheme https if !{ ssl_fc }
+		use_backend letsencrypt-backend if letsencrypt-acl
+		default_backend web_server
 backend web_server
 
         balance roundrobin
 
         redirect scheme https code 301 if !{ ssl_fc }
-
-        server 182741-web-01 54.196.25.60:80 check
+		server 182741-web-01 54.196.25.60:80 check
         server 182741-web-02 54.210.157.92:80 check
-
-
 
 backend letsencrypt-backend
 

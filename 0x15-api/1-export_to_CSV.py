@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+# script to gather todo data from an API and write to CSV file
+# get user todo list
+
+import csv
 import requests
 import sys
 

@@ -1,0 +1,31 @@
+server {
+                listen 80 default_server;
+                listen [::]:80 default_server;
+                root /var/www/html;
+                # index index.html index.htm index.nginx-debian.html
+                server_name 54.196.25.60;
+                add_header X-Served-By $hostname;
+                location = /airbnb-onepage/ {
+                        proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
+                        # try_files $uri $uri/ =404;
+                }
+                # if ($request_filename ~ redirect_me){
+                        # rewrite ^ https://th3-gr00t.tk/ permanent;
+                #}
+
+                # Serve /number_odd_or_even/ route on Airbnb_clone_v2
+                location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
+                        proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+                }
+
+                # Serve AirBnB_clone_v3 API
+                location /api {
+                        proxy_pass http://127.0.0.1:5002/api;
+                }
+
+                # 404 error page
+                error_page 404 /error_404.html;
+                location = /error_404.html {
+                        internal;
+                }
+}

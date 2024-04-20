@@ -17,4 +17,5 @@ server {
                 location = /error_404.html {
                         internal;
                 }
+
 }
